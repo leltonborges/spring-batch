@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  bd_mariadb:
+    image: mariadb:10.10.3
+    environment:
+      MARIADB_ROOT_PASSWORD: "secret"
+      MARIADB_PASSWORD: "secret"
+      MARIADB_USER: "study"
+      MARIADB_DATABASE: batch
+    ports:
+      - "3310:3306"
+    networks:
+      - net-batch
+
+networks:
+  net-batch:
+    name: net-batch
+    driver: bridge
