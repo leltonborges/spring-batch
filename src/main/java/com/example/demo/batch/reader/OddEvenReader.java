@@ -1,4 +1,4 @@
-package com.example.demo.reader;
+package com.example.demo.batch.reader;
 
 import org.springframework.batch.item.support.IteratorItemReader;
 import org.springframework.stereotype.Component;

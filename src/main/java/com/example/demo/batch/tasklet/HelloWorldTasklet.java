@@ -1,4 +1,4 @@
-package com.example.demo.tasklet;
+package com.example.demo.batch.tasklet;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
 public class HelloWorldTasklet
         implements Tasklet {
 
-//    @Bean("helloWorldStep")
-//    @StepScope
-//    public Tasklet getHelloWorld(@Value("#{jobParameters['name']}") String name) {
-//        return (StepContribution contribution, ChunkContext chunkContext) -> {
-//            System.out.println("Hello World: " + name);
-//            return RepeatStatus.FINISHED;
-//        };
-//    }
+    @Bean("helloWorldStepTaskle")
+    @StepScope
+    public Tasklet getHelloWorld(@Value("#{jobParameters['name']}") String name) {
+        return (StepContribution contribution, ChunkContext chunkContext) -> {
+            System.out.println("Hello World: " + name);
+            return RepeatStatus.FINISHED;
+        };
+    }
 
     @Override
-    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
         System.out.println("Hello World");
         return RepeatStatus.FINISHED;
 

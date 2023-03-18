@@ -1,4 +1,4 @@
-package com.example.demo.processor;
+package com.example.demo.batch.processor;
 
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;

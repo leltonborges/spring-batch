@@ -1,4 +1,4 @@
-package com.example.demo.writer;
+package com.example.demo.batch.writer;
 
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
