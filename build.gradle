@@ -1,13 +1,14 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.5.5'
+	id 'org.springframework.boot' version '2.7.9'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
-
 repositories {
 	mavenCentral()
 }
@@ -16,9 +17,50 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.batch:spring-batch-test'
-	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 }
 
+sourceSets{
+	main {
+		java {
+			srcDir 'src/main/java'
+		}
+		resources {
+			srcDir 'src/main/resources'
+		}
+	}
+}
+
+processResources {
+    with copySpec {
+        from 'src/main/resources'
+        include '**/application*.yml'
+        include '**/application*.yaml'
+        include '**/application*.properties'
+        project.properties.findAll().each {
+          prop ->
+            if (prop.value != null) {
+                filter(ReplaceTokens, tokens: [ (prop.key): prop.value])
+                filter(ReplaceTokens, tokens: [ ('project.' + prop.key): prop.value])
+            }
+        }
+    }
+}
+
+tasks.withType(Copy).configureEach {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 tasks.named('test') {
-	useJUnitPlatform()
+//	useJUnitPlatform()
+}
+
+task printSourceSetInformation(){
+	doLast {
+		sourceSets.each {srcSet ->
+			println "["+srcSet.name+"]"
+            print "-->Source directories: "+srcSet.allJava.srcDirs+"\n"
+            print "-->Output directories: "+srcSet.output.classesDirs.files+"\n"
+            println ""
+		}
+	}
 }
