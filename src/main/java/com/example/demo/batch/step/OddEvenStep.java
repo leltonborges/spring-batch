@@ -22,7 +22,7 @@ public class OddEvenStep{
     @Bean("printEvenOddStep")
     public Step printEvenOdd(@Qualifier("oddEvenReader") IteratorItemReader<Integer> tenReader,
                              @Qualifier("oddEvenProcessor") ItemProcessor<Integer, String> oddOrEvenProcessor,
-                             @Qualifier("FirtPrintWriter") ItemWriter<String> printWriter) {
+                             @Qualifier("OddEvenWriter") ItemWriter<String> printWriter) {
         return this.stepBuilderFactory.get("PrintEvenOdd")
                                       .<Integer, String>chunk(1)
                                       .reader(tenReader)
