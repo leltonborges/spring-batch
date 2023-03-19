@@ -5,14 +5,14 @@ spring:
   application:
     name: project-batch-one
   datasource:
+    project:
+      url: ${PROJECT_BATCH_JDBC_URL_DB_BATCH}
+      username: ${PROJECT_BATCH_JDBC_USER_DB_BATCH}
+      password: ${PROJECT_BATCH_JDBC_PASS_DB_BATCH}
     batch:
-      url: jdbc:mariadb://localhost:3310/batch
-      password: secret
-      username: study
-    h2:
-      url: jdbc:h2:mem
-      password: sa
-      username: sa
+      url: ${PROCESS_BATCH_JDBC_URL_DB_BATCH}
+      username: ${PROCESS_BATCH_JDBC_USER_DB_BATCH}
+      password: ${PROCESS_BATCH_JDBC_PASS_DB_BATCH}
   batch:
     jdbc:
       initialize-schema: always
