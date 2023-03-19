@@ -10,6 +10,10 @@ public class ClientFlatFileWriter
         implements ItemWriter<Client> {
     @Override
     public void write(List<? extends Client> items) {
-        items.forEach(System.out::println);
+        items.forEach(i -> {
+            if(i.getName().equals("Maria")) throw new RuntimeException("Error: Maria");
+            else System.out.println(i);
+        });
+//        items.forEach(System.out::println);
     }
 }

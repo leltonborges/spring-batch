@@ -23,7 +23,7 @@ public class ClientFileStep {
 
     @Bean("clientFlatFileStep")
     public Step clientFlatFileStep(@Qualifier("clientFlatFileItermReader") ItemReader<Client> clientItemReader,
-                                    @Qualifier("clientFlatFileWriter") ItemWriter<Client> clientItemWriter) {
+                                   @Qualifier("clientFlatFileWriter") ItemWriter<Client> clientItemWriter) {
         return this.stepBuilderFactory.get("imprimeHelloWorldStep")
                                       .<Client, Client>chunk(1)
                                       .reader(clientItemReader)
