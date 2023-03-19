@@ -25,7 +25,7 @@ public class ClientFileStep {
     public Step clientFlatFileStep(@Qualifier("clientFlatFileItermReader") ItemReader<Client> clientItemReader,
                                    @Qualifier("clientFlatFileWriter") ItemWriter<Client> clientItemWriter) {
         return this.stepBuilderFactory.get("imprimeHelloWorldStep")
-                                      .<Client, Client>chunk(1)
+                                      .<Client, Client>chunk(4)
                                       .reader(clientItemReader)
                                       .writer(clientItemWriter)
                                       .build();

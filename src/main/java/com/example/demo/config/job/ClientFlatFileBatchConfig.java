@@ -4,7 +4,6 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +23,7 @@ public class ClientFlatFileBatchConfig {
     public Job clientFileFlatJob(@Qualifier("clientFlatFileStep") Step step) {
         return jobBuilderFactory.get("clientFileFlatJob")
                                 .start(step)
-                                .incrementer(new RunIdIncrementer())
+//                                .incrementer(new RunIdIncrementer())
                                 .build();
     }
 }

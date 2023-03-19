@@ -15,9 +15,9 @@ public class PropertyConfig {
         return new DataSourceProperties();
     }
 
-    @Bean("h2DataSourceProperties")
-    @ConfigurationProperties("spring.datasource.h2")
-    public DataSourceProperties h2DataSourceProperties(){
+    @Bean("projectDataSourceProperties")
+    @ConfigurationProperties("spring.datasource.project")
+    public DataSourceProperties projectDataSourceProperties(){
         return new DataSourceProperties();
     }
 }
