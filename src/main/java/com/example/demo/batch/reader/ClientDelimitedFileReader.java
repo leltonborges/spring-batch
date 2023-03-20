@@ -18,7 +18,7 @@ public class ClientDelimitedFileReader {
         return new FlatFileItemReaderBuilder<Client>()
                 .name("clientDelimitedFileItemReader")
                 .resource(resource)
-                .delimited().names("name", "lasName", "age", "email")
+                .delimited().names("name", "lastName", "age", "email")
                 .targetType(Client.class)
                 .build();
     }

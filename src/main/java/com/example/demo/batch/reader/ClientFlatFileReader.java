@@ -21,7 +21,7 @@ public class ClientFlatFileReader {
                 .resource(resource)
                 .fixedLength()
                 .columns(new Range(1, 10), new Range(11, 20), new Range(21, 23), new Range(24, 43))
-                .names("name", "lasName", "age", "email")
+                .names("name", "lastName", "age", "email")
                 .targetType(Client.class)
                 .build();
     }
