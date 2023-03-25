@@ -6,13 +6,19 @@ import com.example.demo.model.Transaction;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.ItemStreamReader;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.ResourceAwareItemReaderItemStream;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
+@Component("clientByTransactionReader")
 public class ClientByTransactionReader
-        implements ItemStreamReader<Domain> {
+        implements ItemStreamReader<Domain>,
+        ResourceAwareItemReaderItemStream<Domain> {
     private Object objActual;
-    private final ItemStreamReader<Domain> delegate;
+    private final FlatFileItemReader<Domain> delegate;
 
-    public ClientByTransactionReader(ItemStreamReader<Domain> delegate) {
+    public ClientByTransactionReader(FlatFileItemReader<Domain> delegate) {
         this.delegate = delegate;
     }
 
@@ -49,5 +55,10 @@ public class ClientByTransactionReader
     @Override
     public void close() throws ItemStreamException {
         delegate.close();
+    }
+
+    @Override
+    public void setResource(Resource resource) {
+        delegate.setResource(resource);
     }
 }

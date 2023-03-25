@@ -12,17 +12,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableBatchProcessing
-public class ClientMultFileBatchConfig {
+public class ClientMultFormatAndFilesBatchConfig {
     private final JobBuilderFactory jobBuilderFactory;
 
     @Autowired
-    public ClientMultFileBatchConfig(JobBuilderFactory jobBuilderFactory) {
+    public ClientMultFormatAndFilesBatchConfig(JobBuilderFactory jobBuilderFactory) {
         this.jobBuilderFactory = jobBuilderFactory;
     }
 
-    @Bean("clientMultFileJob")
-    public Job clientMultFileJob(@Qualifier("clientMultFormatFileStep") Step step) {
-        return jobBuilderFactory.get("clientMultFileJob")
+    @Bean("clientMultFormantAndFilesJob")
+    public Job clientMultFormantAndFilesJob(@Qualifier("clientMultFormatAndFilesStep") Step step) {
+        return jobBuilderFactory.get("clientMultFormantAndFilesJob")
                                 .start(step)
                                 .incrementer(new RunIdIncrementer())
                                 .build();

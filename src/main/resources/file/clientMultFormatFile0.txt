@@ -1,0 +1,9 @@
+0,João,Silva_f0,32,joao@test.com
+1,t1c1,Cadeado_f0,50.80
+1,t2c1,TV_f0,1500
+0,Maria,Silva_f0,30,maria@test.com
+1,t1c2,Geladeira duplex_f0,2000
+1,t2c2,Mesa_f0,4500
+1,t3c2,Sofá_f0,1099,99      
+0,José,Silva_f0,20,jose@test.com
+1,t1c3,Comida no Ifood_f0,500.45

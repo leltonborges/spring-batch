@@ -16,7 +16,7 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
-      table-prefix: APP_PROJECT_BATCH_
+#      table-prefix: APP_PROJECT_BATCH_
       isolation-level-for-create: read_committed
 logging:
   config: src/main/resources/log4j.xml

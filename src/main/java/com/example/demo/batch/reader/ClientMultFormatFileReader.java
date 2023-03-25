@@ -13,10 +13,11 @@ import org.springframework.core.io.Resource;
 
 @Configuration
 public class ClientMultFormatFileReader {
-    @Bean
+    @Bean("clientMultFormatFileItemReader")
     @StepScope
-    public FlatFileItemReader<Domain> clientMultFormatFileItemReader(@Value("#{jobParameters['multFormatFileNameClient']}") Resource resource,
-                                                                     @Qualifier("patternMatchingCompositeLineMapper") LineMapper<Domain> lineMapper) {
+    public FlatFileItemReader<Domain> clientMultFormatFileItemReader(
+            @Value("#{jobParameters['multFormatFileNameClient']}") Resource resource,
+            @Qualifier("patternMatchingCompositeLineMapper") LineMapper<Domain> lineMapper) {
         return new FlatFileItemReaderBuilder<Domain>()
                 .name("clientMultFormatFileItemReader")
                 .resource(resource)
