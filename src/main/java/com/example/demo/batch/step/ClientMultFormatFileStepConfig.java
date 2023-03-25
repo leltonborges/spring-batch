@@ -1,10 +1,12 @@
 package com.example.demo.batch.step;
 
+import com.example.demo.batch.reader.ClientByTransactionReader;
+import com.example.demo.model.Domain;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +23,11 @@ public class ClientMultFormatFileStepConfig {
     }
 
     @Bean("clientMultFormatFileStep")
-    public Step clientMultFormatFileStep(@Qualifier("clientMultFormatFileItemReader") ItemReader clientItemReader,
-                                         @Qualifier("clientMultFormatFileWriter") ItemWriter clientItemWriter) {
+    public Step clientMultFormatFileStep(@Qualifier("clientMultFormatFileItemReader") FlatFileItemReader<Domain> clientItemReader,
+                                         @Qualifier("clientMultFormatFileWriter") ItemWriter<Domain> clientItemWriter) {
         return this.stepBuilderFactory.get("imprimeHelloWorldStep")
-                                      .chunk(4)
-                                      .reader(clientItemReader)
+                                      .<Domain, Domain>chunk(4)
+                                      .reader(new ClientByTransactionReader(clientItemReader))
                                       .writer(clientItemWriter)
                                       .build();
     }

@@ -1,6 +1,7 @@
 package com.example.demo.batch.reader;
 
 import com.example.demo.model.Client;
+import com.example.demo.model.Domain;
 import com.example.demo.model.Transaction;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -18,22 +19,22 @@ import java.util.Map;
 @Configuration
 public class LineMapperMultFormatClient {
     @Bean
-    public PatternMatchingCompositeLineMapper patternMatchingCompositeLineMapper() {
-        PatternMatchingCompositeLineMapper lineMapper = new PatternMatchingCompositeLineMapper();
+    public PatternMatchingCompositeLineMapper<Domain> patternMatchingCompositeLineMapper() {
+        PatternMatchingCompositeLineMapper<Domain> lineMapper = new PatternMatchingCompositeLineMapper<>();
         lineMapper.setTokenizers(tokenizers());
-        lineMapper.setFieldSetMappers(filedSetMapper());
+        lineMapper.setFieldSetMappers(fieldSetMapper());
         return lineMapper;
     }
 
-    private Map<String, FieldSetMapper> filedSetMapper() {
-        Map<String, FieldSetMapper> fieldSetMapperMap = new HashMap<>();
-        fieldSetMapperMap.put("0*", fieldSetMapper(Client.class));
-        fieldSetMapperMap.put("1*", fieldSetMapper(Transaction.class));
+    private <T extends Domain> Map<String, FieldSetMapper<T>> fieldSetMapper() {
+        Map<String, FieldSetMapper<T>> fieldSetMapperMap = new HashMap<>();
+        fieldSetMapperMap.put("0*", (FieldSetMapper<T>) fieldSetMapper(Client.class));
+        fieldSetMapperMap.put("1*", (FieldSetMapper<T>) fieldSetMapper(Transaction.class));
         return fieldSetMapperMap;
     }
 
-    private FieldSetMapper fieldSetMapper(Class clasz) {
-        BeanWrapperFieldSetMapper fieldSetMapper = new BeanWrapperFieldSetMapper();
+    private <T extends Domain> FieldSetMapper<T> fieldSetMapper(Class<T> clasz) {
+        BeanWrapperFieldSetMapper<T> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
         fieldSetMapper.setTargetType(clasz);
         return fieldSetMapper;
     }

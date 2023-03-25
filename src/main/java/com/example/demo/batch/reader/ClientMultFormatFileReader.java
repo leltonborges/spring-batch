@@ -1,5 +1,6 @@
 package com.example.demo.batch.reader;
 
+import com.example.demo.model.Domain;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
@@ -14,9 +15,9 @@ import org.springframework.core.io.Resource;
 public class ClientMultFormatFileReader {
     @Bean
     @StepScope
-    public FlatFileItemReader clientMultFormatFileItemReader(@Value("#{jobParameters['multFormatFileNameClient']}")Resource resource,
-                                                             @Qualifier("patternMatchingCompositeLineMapper") LineMapper lineMapper){
-        return new FlatFileItemReaderBuilder()
+    public FlatFileItemReader<Domain> clientMultFormatFileItemReader(@Value("#{jobParameters['multFormatFileNameClient']}") Resource resource,
+                                                                     @Qualifier("patternMatchingCompositeLineMapper") LineMapper<Domain> lineMapper) {
+        return new FlatFileItemReaderBuilder<Domain>()
                 .name("clientMultFormatFileItemReader")
                 .resource(resource)
                 .lineMapper(lineMapper)
