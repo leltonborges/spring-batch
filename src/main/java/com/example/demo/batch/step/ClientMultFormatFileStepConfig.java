@@ -14,12 +14,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableBatchProcessing
-public class ClientMultFormatFileStepConfig {
-    private final StepBuilderFactory stepBuilderFactory;
+public class ClientMultFormatFileStepConfig
+        extends StepAbstractConfig {
 
     @Autowired
-    public ClientMultFormatFileStepConfig(StepBuilderFactory stepBuilderFactory) {
-        this.stepBuilderFactory = stepBuilderFactory;
+    protected ClientMultFormatFileStepConfig(StepBuilderFactory stepBuilderFactory) {
+        super(stepBuilderFactory);
     }
 
     @Bean("clientMultFormatFileStep")

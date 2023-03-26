@@ -2,7 +2,6 @@ package com.example.demo.batch.step;
 
 import com.example.demo.model.Domain;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.MultiResourceItemReader;
@@ -12,13 +11,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableBatchProcessing
-public class ClientMultFormatAndFilesStepConfig {
-    private final StepBuilderFactory stepBuilderFactory;
+public class ClientMultFormatAndFilesStepConfig
+        extends StepAbstractConfig {
 
     @Autowired
-    public ClientMultFormatAndFilesStepConfig(StepBuilderFactory stepBuilderFactory) {
-        this.stepBuilderFactory = stepBuilderFactory;
+    protected ClientMultFormatAndFilesStepConfig(StepBuilderFactory stepBuilderFactory) {
+        super(stepBuilderFactory);
     }
 
     @Bean("clientMultFormatAndFilesStep")

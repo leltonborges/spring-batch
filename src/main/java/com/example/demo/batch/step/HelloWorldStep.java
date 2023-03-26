@@ -1,7 +1,6 @@
 package com.example.demo.batch.step;
 
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableBatchProcessing
-public class HelloWorldStep{
-
-    private final StepBuilderFactory stepBuilderFactory;
+public class HelloWorldStep
+        extends StepAbstractConfig {
 
     @Autowired
-    public HelloWorldStep(StepBuilderFactory stepBuilderFactory) {
-        this.stepBuilderFactory = stepBuilderFactory;
+    protected HelloWorldStep(StepBuilderFactory stepBuilderFactory) {
+        super(stepBuilderFactory);
     }
 
     @Bean("printHelloWorldStep")

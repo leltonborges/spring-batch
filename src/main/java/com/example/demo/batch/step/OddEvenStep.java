@@ -8,15 +8,15 @@ import org.springframework.batch.item.support.IteratorItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-@Component
-public class OddEvenStep{
-    private final StepBuilderFactory stepBuilderFactory;
+@Configuration
+public class OddEvenStep
+        extends StepAbstractConfig {
 
     @Autowired
-    public OddEvenStep(StepBuilderFactory stepBuilderFactory) {
-        this.stepBuilderFactory = stepBuilderFactory;
+    protected OddEvenStep(StepBuilderFactory stepBuilderFactory) {
+        super(stepBuilderFactory);
     }
 
     @Bean("printEvenOddStep")

@@ -10,21 +10,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ClientDelimitedFileBatchConfig
+public class JdbcCursorBatchConfig
         extends JobAbstractConfig {
 
-
     @Autowired
-    protected ClientDelimitedFileBatchConfig(JobBuilderFactory jobBuilderFactory) {
+    public JdbcCursorBatchConfig(JobBuilderFactory jobBuilderFactory) {
         super(jobBuilderFactory);
     }
 
-    @Bean("clientDelimitedFileJob")
-    public Job clientDelimitedFileJob(@Qualifier("clientDelimitedFileStep") Step step) {
-        return jobBuilderFactory.get("clientDelimitedFileJob")
+    @Bean("jdbcCursorJob")
+    public Job job(@Qualifier("jdbcCursorStep") Step step) {
+        return jobBuilderFactory.get("jdbcCursorJob")
                                 .start(step)
                                 .incrementer(new RunIdIncrementer())
                                 .build();
-
     }
 }

@@ -45,7 +45,7 @@ public class LineMapperMultFormatClient {
 
     private LineTokenizer transactionTokenizer() {
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
-        lineTokenizer.setNames("id", "description", "amount");
+        lineTokenizer.setNames("idTransaction", "description", "amount");
         lineTokenizer.setIncludedFields(1, 2, 3);
         return lineTokenizer;
     }
