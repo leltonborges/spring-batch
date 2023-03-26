@@ -1,20 +1,29 @@
 package com.example.demo.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(name = "findAll",
+query = "select c from Client c")
+
+@NamedNativeQuery(
+        name = "findAllSort",
+        query = "select * from project.TB_CLIENT c ",
+        resultClass = Client.class)
 @Getter
 @Setter
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TB_CLIENT", schema = "project")
 @Where(clause = "DF_DELETE = true")
-public class Client implements Domain {
+public class Client
+        implements Domain {
     @Id
     @Column(name = "SQ_CLIENT")
     private Long id;
@@ -27,9 +36,17 @@ public class Client implements Domain {
     @Column(name = "ST_EMAIL")
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "TB_CLIENTE_TRANSACTION",
-    joinColumns = @JoinColumn(name = "SQ_CLIENT"),
-    inverseJoinColumns = @JoinColumn(name = "SQ_TRANSACTION"))
+            schema = "project",
+            indexes = {
+                    @Index(name = "id_client_transaction", columnList = "SQ_CLIENT, SQ_TRANSACTION", unique = true)
+            },
+            joinColumns = @JoinColumn(name = "SQ_CLIENT"),
+            inverseJoinColumns = @JoinColumn(name = "SQ_TRANSACTION"))
+    @Transient
     private List<Transaction> transactions = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "client")
+//    private List<ClientTransaction> clientTransaction;
 }

@@ -33,6 +33,7 @@ public class ClientByTransactionReader
         while (peek() instanceof Transaction) {
             assert client != null;
             client.getTransactions().add((Transaction) objActual);
+//            client.getClientTransaction().add((ClientTransaction) objActual);
         }
         return client;
     }
