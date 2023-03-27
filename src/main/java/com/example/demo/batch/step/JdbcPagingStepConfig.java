@@ -5,8 +5,7 @@ import com.example.demo.model.Client;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.JdbcPagingItemReader;
-import org.springframework.batch.item.database.JpaPagingItemReader;
+import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -23,14 +22,15 @@ public class JdbcPagingStepConfig
 
     @Bean("jdbcPagingStep")
     public Step jdbcPagingStep(
-            @Qualifier("jdbcPagingItemReader") JdbcPagingItemReader<Client> clientJdbcPagingItemReader,
-            @Qualifier("clientRepositoryItemReader")JpaPagingItemReader<Client> clientJpaPagingItemReader,
+            @Qualifier("clientRepositoryItemReader") RepositoryItemReader<Client> repositoryItemReader,
+//            @Qualifier("jdbcPagingItemReader") JdbcPagingItemReader<Client> clientJdbcPagingItemReader,
+//            @Qualifier("clientJpaPagingItemReader")JpaPagingItemReader<Client> clientJpaPagingItemReader,
             @Qualifier("jdbcPagingWriter") ItemWriter<Client> clientItemWriter
             ){
         return stepBuilderFactory.get("jdbcPagingStep")
                 .<Client, Client>chunk(2)
-//                .reader(clientJdbcPagingItemReader)
-                .reader(clientJpaPagingItemReader)
+                .reader(repositoryItemReader)
+//                .reader(clientJpaPagingItemReader)
                 .writer(clientItemWriter)
                 .build();
 

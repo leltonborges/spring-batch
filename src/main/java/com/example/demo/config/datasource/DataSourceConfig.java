@@ -18,8 +18,8 @@ public class DataSourceConfig {
     }
 
     @Bean("projectDataSource")
-    public DataSource h2DataSource(@Qualifier("projectDataSourceProperties") DataSourceProperties h2DataSourceProperties) {
-        return h2DataSourceProperties.initializeDataSourceBuilder()
+    public DataSource projectDataSource(@Qualifier("projectDataSourceProperties") DataSourceProperties dataSourceProperties) {
+        return dataSourceProperties.initializeDataSourceBuilder()
                                      .build();
     }
 }

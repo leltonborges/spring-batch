@@ -1,13 +1,12 @@
 package com.example.demo.model;
 
 import lombok.*;
-import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @NamedQuery(name = "findAll",
-query = "select c from Client c")
+        query = "select c from Client c")
 
 @NamedNativeQuery(
         name = "findAllSort",
@@ -21,7 +20,6 @@ query = "select c from Client c")
 @AllArgsConstructor
 @Entity
 @Table(name = "TB_CLIENT", schema = "project")
-@Where(clause = "DF_DELETE = true")
 public class Client
         implements Domain {
     @Id
@@ -36,15 +34,14 @@ public class Client
     @Column(name = "ST_EMAIL")
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_CLIENTE_TRANSACTION",
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "TB_CLIENT_TRANSACTION",
             schema = "project",
             indexes = {
                     @Index(name = "id_client_transaction", columnList = "SQ_CLIENT, SQ_TRANSACTION", unique = true)
             },
             joinColumns = @JoinColumn(name = "SQ_CLIENT"),
             inverseJoinColumns = @JoinColumn(name = "SQ_TRANSACTION"))
-    @Transient
     private List<Transaction> transactions = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "client")

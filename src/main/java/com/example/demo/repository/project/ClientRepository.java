@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.demo.repository.project;
 
 import com.example.demo.model.Client;
 import org.springframework.data.repository.PagingAndSortingRepository;
