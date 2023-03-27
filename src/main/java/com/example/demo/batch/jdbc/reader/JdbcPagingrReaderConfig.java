@@ -1,6 +1,5 @@
 package com.example.demo.batch.jdbc.reader;
 
-import com.example.demo.batch.mapper.ClientRowMapper;
 import com.example.demo.model.Client;
 import org.springframework.batch.item.database.JdbcPagingItemReader;
 import org.springframework.batch.item.database.Order;
@@ -9,6 +8,7 @@ import org.springframework.batch.item.database.support.MySqlPagingQueryProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.RowMapper;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class JdbcPagingrReaderConfig {
     public JdbcPagingItemReader<Client> jdbcPagingItemReader(
             @Qualifier("projectDataSource") DataSource dataSource,
             @Qualifier("mySqlPagingQueryProvider") MySqlPagingQueryProvider pagingQueryProvider,
-            @Qualifier("clientRowMapper") ClientRowMapper clientRowMapper) {
+            @Qualifier("clientRowMapper") RowMapper<Client> clientRowMapper) {
         return new JdbcPagingItemReaderBuilder<Client>()
                 .name("jdbcPagingItemReader")
                 .dataSource(dataSource)
