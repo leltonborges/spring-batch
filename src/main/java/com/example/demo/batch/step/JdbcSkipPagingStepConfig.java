@@ -1,6 +1,5 @@
 package com.example.demo.batch.step;
 
-
 import com.example.demo.model.Client;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -13,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class JdbcSkipPagingStepConfig
-        extends StepAbstractConfig{
+        extends StepAbstractConfig {
 
     @Autowired
     protected JdbcSkipPagingStepConfig(StepBuilderFactory stepBuilderFactory) {
@@ -24,15 +23,14 @@ public class JdbcSkipPagingStepConfig
     public Step jdbcPagingStep(
             @Qualifier("skipExceptionReaderClient") ItemReader<Client> clientItemReader,
             @Qualifier("jdbcPagingWriter") ItemWriter<Client> clientItemWriter
-            ){
+                              ) {
         return stepBuilderFactory.get("jdbcSkipPagingStep")
-                .<Client, Client>chunk(2)
-                .reader(clientItemReader)
-                .writer(clientItemWriter)
-                .faultTolerant()
-                .skip(Exception.class)
-                .skipLimit(2)
-                .build();
-
+                                 .<Client, Client>chunk(2)
+                                 .reader(clientItemReader)
+                                 .writer(clientItemWriter)
+                                 .faultTolerant()
+                                 .skip(Exception.class)
+                                 .skipLimit(2)
+                                 .build();
     }
 }

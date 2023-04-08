@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import lombok.*;
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,10 @@ import java.util.List;
 @Entity
 @Table(name = "TB_CLIENT", schema = "project")
 public class Client
-        implements Domain {
+        implements Domain, Serializable {
+    @Serial
+    private static final long serialVersionUID = -1164082920613427864L;
+
     @Id
     @Column(name = "SQ_CLIENT")
     private Long id;

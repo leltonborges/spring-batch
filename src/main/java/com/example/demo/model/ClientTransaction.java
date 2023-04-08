@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -20,7 +22,10 @@ import java.time.LocalDateTime;
                 @Index(name = "id_client_transaction", columnList = "SQ_CLIENT, SQ_TRANSACTION", unique = true)
         }
 )
-public class ClientTransaction {
+public class ClientTransaction implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 7054098359506288499L;
+
     @EmbeddedId
     private ClientTransactionKey id;
     @ManyToOne

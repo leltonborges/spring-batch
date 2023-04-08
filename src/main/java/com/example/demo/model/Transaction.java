@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter
@@ -14,7 +16,10 @@ import java.math.BigDecimal;
 @ToString
 @Entity
 @Table(name = "TB_TRANSACTION", schema = "project")
-public class Transaction implements Domain {
+public class Transaction implements Domain, Serializable {
+    @Serial
+    private static final long serialVersionUID = 605586854941985515L;
+
     @Id
     @Column(name = "SQ_TRANSACTION")
     private Long id;
