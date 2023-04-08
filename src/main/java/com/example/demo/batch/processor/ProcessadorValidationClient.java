@@ -2,6 +2,8 @@ package com.example.demo.batch.processor;
 
 import com.example.demo.model.ClientProcessor;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.support.builder.CompositeItemProcessorBuilder;
+import org.springframework.batch.item.validator.BeanValidatingItemProcessor;
 import org.springframework.batch.item.validator.ValidatingItemProcessor;
 import org.springframework.batch.item.validator.ValidationException;
 import org.springframework.batch.item.validator.Validator;
@@ -12,25 +14,34 @@ import java.util.Set;
 
 @Configuration
 public class ProcessadorValidationClient {
+    private final Set<String> emails = new HashSet<>();
 
     @Bean("clientItemProcessor")
-    public ItemProcessor<ClientProcessor, ClientProcessor> clientItemProcessor() {
-        ValidatingItemProcessor<ClientProcessor> itemProcessor = new ValidatingItemProcessor<>();
-        itemProcessor.setValidator(new ValidationClientProcessor());
+    public ItemProcessor<ClientProcessor, ClientProcessor> clientItemProcessor() throws Exception {
+        return new CompositeItemProcessorBuilder<ClientProcessor, ClientProcessor>()
+                .delegates(validationItemProcessor(), validatingItemProcessor())
+                .build();
+    }
+
+    private BeanValidatingItemProcessor<ClientProcessor> validationItemProcessor() throws Exception {
+        BeanValidatingItemProcessor<ClientProcessor> itemProcessor = new BeanValidatingItemProcessor<>();
         itemProcessor.setFilter(true);
+        itemProcessor.afterPropertiesSet();
         return itemProcessor;
     }
 
-    private static class ValidationClientProcessor
-            implements Validator<ClientProcessor> {
-        private final Set<String> emails = new HashSet<>();
+    private ValidatingItemProcessor<ClientProcessor> validatingItemProcessor() {
+        ValidatingItemProcessor<ClientProcessor> processor = new ValidatingItemProcessor<>();
+        processor.setFilter(true);
+        processor.setValidator(clientProcessorValidator());
+        return processor;
+    }
 
-        @Override
-        public void validate(ClientProcessor clientProcessor) throws ValidationException {
+    private Validator<ClientProcessor> clientProcessorValidator() {
+        return clientProcessor -> {
             if (emails.contains(clientProcessor.getEmail()))
                 throw new ValidationException(String.format("The client %s is has processor", clientProcessor.getEmail()));
             emails.add(clientProcessor.getEmail());
-        }
+        };
     }
-
 }
