@@ -24,11 +24,13 @@ public class ClientPreocessorFileStepConfig
     public Step clientDelimitedFileStep(
             @Qualifier("clientProcessorFileItemReader") ItemReader<ClientProcessor> clientProcessorItemReader,
             @Qualifier("clientProcessorFileWriter") ItemWriter<ClientProcessor> processorItemWriter,
+//            @Qualifier("scriptItemProcessorClient") ItemProcessor<ClientProcessor, ClientProcessor> scriptItemProcessor,
             @Qualifier("clientItemProcessor") ItemProcessor<ClientProcessor, ClientProcessor> itemProcessor) {
         return stepBuilderFactory.get("clientPreocessorFileStep")
                                  .<ClientProcessor, ClientProcessor>chunk(1)
                                  .reader(clientProcessorItemReader)
                                  .processor(itemProcessor)
+//                                 .processor(scriptItemProcessor)
                                  .writer(processorItemWriter)
                                  .build();
 

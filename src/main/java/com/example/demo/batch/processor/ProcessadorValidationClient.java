@@ -40,7 +40,7 @@ public class ProcessadorValidationClient {
     private Validator<ClientProcessor> clientProcessorValidator() {
         return clientProcessor -> {
             if (emails.contains(clientProcessor.getEmail()))
-                throw new ValidationException(String.format("The client %s is has processor", clientProcessor.getEmail()));
+                throw new ValidationException(String.format("The client of email: %s is has processor", clientProcessor.getEmail()));
             emails.add(clientProcessor.getEmail());
         };
     }
