@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQuery(name = "findAll",
-        query = "select c from Client c")
+//@NamedQuery(name = "findAll",
+//        query = "select c from Client c")
 
 @NamedNativeQuery(
         name = "findAllSort",
@@ -39,6 +39,7 @@ public class Client
     @Column(name = "ST_EMAIL")
     private String email;
 
+    @Builder.Default
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "TB_CLIENT_TRANSACTION",
             schema = "project",
