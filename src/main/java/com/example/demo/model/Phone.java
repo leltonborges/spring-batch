@@ -34,4 +34,9 @@ public class Phone
     private String description;
     @Column(name = "ST_CHIP")
     private int stChip;
+
+    public Phone(int dd, int stChip) {
+        this.dd = dd;
+        this.stChip = stChip;
+    }
 }

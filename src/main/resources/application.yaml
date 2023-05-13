@@ -23,5 +23,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        metadata_contributor:
 logging:
   config: src/main/resources/log4j.xml
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: TRACE
+        SQL: DEBUG
